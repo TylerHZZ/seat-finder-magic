@@ -52,8 +52,8 @@ const Scan = () => {
     console.log('QR Code scanned:', decodedText);
 
     try {
-      // Parse QR code data (format: "Thompson-3F-001")
-      const seatId = decodedText;
+      // Parse QR code data (format: "Thompson-3F-001" or "18th-1F-001")
+      const seatId = decodedText.trim();
       const parts = seatId.split('-');
       
       if (parts.length < 3) {
@@ -65,7 +65,16 @@ const Scan = () => {
         return;
       }
 
-      const building = parts[0] + ' Library';
+      // Map prefix to full building name
+      const buildingMap: { [key: string]: string } = {
+        'Thompson': 'Thompson Library',
+        '18th': '18th Avenue Library',
+        'Arch': 'Architecture Library',
+        'Arts': 'Fine Arts Library'
+      };
+
+      const prefix = parts[0];
+      const building = buildingMap[prefix] || prefix + ' Library';
       const floor = parseInt(parts[1].replace('F', ''));
 
       // Check if user has an active reservation
