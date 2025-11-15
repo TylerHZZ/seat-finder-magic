@@ -26,7 +26,7 @@ export type Database = {
           seat_id: string
           status: string
           updated_at: string
-          user_id: string | null
+          user_id: string
           user_name: string | null
         }
         Insert: {
@@ -40,7 +40,7 @@ export type Database = {
           seat_id: string
           status?: string
           updated_at?: string
-          user_id?: string | null
+          user_id: string
           user_name?: string | null
         }
         Update: {
@@ -54,7 +54,7 @@ export type Database = {
           seat_id?: string
           status?: string
           updated_at?: string
-          user_id?: string | null
+          user_id?: string
           user_name?: string | null
         }
         Relationships: []
