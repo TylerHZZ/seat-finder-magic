@@ -133,7 +133,7 @@ const Mobile = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
-        <p className="text-muted-foreground">加载中...</p>
+        <p className="text-muted-foreground">Loading...</p>
       </div>
     );
   }
@@ -177,7 +177,7 @@ const Mobile = () => {
               className="text-primary-foreground hover:bg-primary-foreground/10"
             >
               <LogOut className="h-4 w-4 mr-2" />
-              退出
+              Log Out
             </Button>
           </div>
         </div>
@@ -192,7 +192,7 @@ const Mobile = () => {
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h2 className="text-lg font-semibold text-foreground">Current Seat</h2>
-                <p className="text-sm text-muted-foreground">您有一个激活的预定</p>
+                <p className="text-sm text-muted-foreground">You have an active reservation</p>
               </div>
               <Badge className="bg-primary">Occupied</Badge>
             </div>
@@ -203,7 +203,7 @@ const Mobile = () => {
                 <span className="font-medium">{currentReservation.seat_id}</span>
               </div>
               <div className="text-sm text-muted-foreground">
-                {currentReservation.building} - {currentReservation.floor}楼
+                {currentReservation.building} - Floor {currentReservation.floor}
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="h-4 w-4 text-muted-foreground" />
@@ -239,7 +239,7 @@ const Mobile = () => {
           <Card className="p-6 border-2 border-dashed">
             <div className="text-center">
               <QrCode className="h-12 w-12 mx-auto mb-3 text-muted-foreground" />
-              <h2 className="text-lg font-semibold mb-2">无激活的预定</h2>
+              <h2 className="text-lg font-semibold mb-2">No Active Reservation</h2>
               <p className="text-sm text-muted-foreground mb-4">
                 Scan QR code to reserve a seat
               </p>
@@ -254,7 +254,7 @@ const Mobile = () => {
         <Card className="p-4 bg-muted/30">
           <h3 className="font-medium mb-2 flex items-center gap-2">
             <span className="text-primary">💡</span>
-            如何使用
+            How to Use
           </h3>
           <ul className="text-sm text-muted-foreground space-y-2">
             <li className="flex items-start gap-2">
