@@ -206,13 +206,13 @@ export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps)
           className="relative w-full h-[600px] transition-transform duration-300"
           style={{ transform: `scale(${zoom})`, transformOrigin: 'center center' }}
         >
-          {/* Floor plan background or generated layout */}
+          {/* Floor plan background image */}
           {floorPlanImage ? (
-            <>
+            <div className="absolute inset-0 z-0">
               <img
                 src={floorPlanImage}
                 alt={`${building} Floor ${floor} plan`}
-                className="absolute inset-0 w-full h-full object-contain"
+                className="w-full h-full object-contain"
                 onLoad={() => {
                   console.log('Image loaded successfully:', floorPlanImage);
                   setImageLoaded(true);
@@ -232,9 +232,9 @@ export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps)
                   <p className="text-destructive">Failed to load floor plan image</p>
                 </div>
               )}
-            </>
+            </div>
           ) : (
-            <div className="absolute inset-0 bg-muted/20">
+            <div className="absolute inset-0 z-0 bg-muted/20">
               {/* Fallback SVG layout for buildings without floor plans */}
               <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <rect 
@@ -262,8 +262,8 @@ export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps)
             </div>
           )}
           
-          {/* Seat markers overlay */}
-          <div className="absolute inset-0">
+          {/* Seat markers overlay - positioned above the background */}
+          <div className="absolute inset-0 z-10 pointer-events-none">
             {seatPositions.map((position) => {
               const seat = seatMap.get(position.id);
               if (!seat) return null;
@@ -276,12 +276,12 @@ export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps)
                   onClick={() => onSeatClick(seat)}
                   className={cn(
                     "absolute w-10 h-10 -ml-5 -mt-5 rounded-full transition-all duration-300",
-                    "flex items-center justify-center text-xs font-bold",
+                    "flex items-center justify-center text-xs font-bold pointer-events-auto",
                     "hover:scale-150 hover:z-20 cursor-pointer",
-                    "border-4 shadow-lg backdrop-blur-sm",
+                    "border-4 shadow-lg",
                     isAvailable 
-                      ? "bg-success/90 border-success text-success-foreground hover:bg-success" 
-                      : "bg-warning/90 border-warning text-warning-foreground animate-pulse hover:bg-warning"
+                      ? "bg-success/80 border-success text-success-foreground hover:bg-success" 
+                      : "bg-warning/80 border-warning text-warning-foreground animate-pulse hover:bg-warning"
                   )}
                   style={{
                     left: `${position.x}%`,
@@ -297,7 +297,7 @@ export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps)
           
           {/* Building label watermark (only for non-image layouts) */}
           {!floorPlanImage && (
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-5">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-5 z-0">
               <p className="text-6xl font-bold text-foreground whitespace-nowrap">
                 {building.split(' ')[0]}
               </p>
