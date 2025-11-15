@@ -140,7 +140,7 @@ const Index = () => {
             <img src={osuLogo} alt="OSU Logo" className="h-20 w-20 object-contain" />
             <div>
               <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                OSU Library Navigator
+                OSU Seat Navigator
               </h1>
               <p className="text-muted-foreground text-sm">
                 Premium study space management across campus
