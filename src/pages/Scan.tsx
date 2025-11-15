@@ -22,6 +22,7 @@ const Scan = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const scannerRef = useRef<Html5QrcodeScanner | null>(null);
 
   useEffect(() => {
     checkUser();
@@ -31,6 +32,14 @@ const Scan = () => {
     if (user && !scanning) {
       initializeScanner();
     }
+    
+    // Cleanup function to stop scanner when component unmounts
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current.clear().catch(console.error);
+        scannerRef.current = null;
+      }
+    };
   }, [user]);
 
   const checkUser = async () => {
@@ -49,12 +58,9 @@ const Scan = () => {
       false
     );
 
+    scannerRef.current = scanner;
     scanner.render(onScanSuccess, onScanError);
     setScanning(true);
-
-    return () => {
-      scanner.clear();
-    };
   };
 
   const onScanSuccess = async (decodedText: string) => {
@@ -124,13 +130,19 @@ const Scan = () => {
             })
             .eq('id', existingReservation.id);
 
-          toast({
-            title: 'Seat Released ✓',
-            description: `${seatId} is now available for others.`,
-          });
+      toast({
+        title: 'Seat Released ✓',
+        description: `${seatId} is now available for others.`,
+      });
 
-          navigate('/mobile');
-          return;
+      // Stop scanner before navigating
+      if (scannerRef.current) {
+        await scannerRef.current.clear().catch(console.error);
+        scannerRef.current = null;
+      }
+      
+      navigate('/mobile');
+      return;
         } else {
           toast({
             title: 'Already Have a Seat',
@@ -185,6 +197,12 @@ const Scan = () => {
         description: `You have reserved ${seatId}.`,
       });
 
+      // Stop scanner before navigating
+      if (scannerRef.current) {
+        await scannerRef.current.clear().catch(console.error);
+        scannerRef.current = null;
+      }
+      
       navigate('/mobile');
     } catch (error) {
       console.error('Error processing QR code:', error);
