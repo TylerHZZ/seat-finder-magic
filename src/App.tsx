@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Mobile from "./pages/Mobile";
 import Scan from "./pages/Scan";
 import Auth from "./pages/Auth";
+import QRGenerator from "./pages/QRGenerator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/mobile" element={<Mobile />} />
           <Route path="/scan" element={<Scan />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/qr-generator" element={<QRGenerator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
