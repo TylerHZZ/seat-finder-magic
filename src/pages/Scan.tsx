@@ -7,6 +7,14 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, QrCode } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import osuLogo from '@/assets/osu-logo.png';
+import { z } from 'zod';
+
+// QR code validation schema
+const qrCodeSchema = z.object({
+  seatId: z.string().min(1).max(50, 'Seat ID too long'),
+  building: z.string().min(1).max(100, 'Building name too long'),
+  floor: z.number().min(1, 'Invalid floor').max(20, 'Invalid floor'),
+});
 
 const Scan = () => {
   const [scanning, setScanning] = useState(false);
@@ -49,7 +57,9 @@ const Scan = () => {
   };
 
   const onScanSuccess = async (decodedText: string) => {
-    console.log('QR Code scanned:', decodedText);
+    if (import.meta.env.DEV) {
+      console.log('QR Code scanned:', decodedText);
+    }
 
     try {
       // Parse QR code data (format: "Thompson-3F-001" or "18th-1F-001")
@@ -76,6 +86,23 @@ const Scan = () => {
       const prefix = parts[0];
       const building = buildingMap[prefix] || prefix + ' Library';
       const floor = parseInt(parts[1].replace('F', ''));
+
+      // Validate parsed data
+      const validationResult = qrCodeSchema.safeParse({
+        seatId,
+        building,
+        floor
+      });
+
+      if (!validationResult.success) {
+        const errors = validationResult.error.errors.map(e => e.message).join(', ');
+        toast({
+          title: 'Invalid QR Code Data',
+          description: errors,
+          variant: 'destructive',
+        });
+        return;
+      }
 
       // Check if user has an active reservation
       const { data: existingReservation } = await supabase
