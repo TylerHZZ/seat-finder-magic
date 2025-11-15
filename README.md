@@ -3,6 +3,7 @@
 ## Project info
 
 https://seat-finder-magic.lovable.app
+
 https://lovable.dev/projects/47f981c3-2a55-40e1-b2a5-ebe4df0aa942
 
 ## How can I edit this code?
