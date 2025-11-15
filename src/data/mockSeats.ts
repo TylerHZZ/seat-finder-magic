@@ -66,6 +66,19 @@ export const mockSeats: Seat[] = [
   { id: 'Arch-1F-005', building: 'Architecture Library', floor: 1, status: 'available' },
   { id: 'Arch-1F-006', building: 'Architecture Library', floor: 1, status: 'occupied', occupant: 'Liam Thomas', occupiedAt: new Date(Date.now() - 4700000) },
   
+  // Architecture Library - Floor 2
+  { id: 'Arch-2F-001', building: 'Architecture Library', floor: 2, status: 'available' },
+  { id: 'Arch-2F-002', building: 'Architecture Library', floor: 2, status: 'available' },
+  { id: 'Arch-2F-003', building: 'Architecture Library', floor: 2, status: 'occupied', occupant: 'Isabella Clark', occupiedAt: new Date(Date.now() - 3100000) },
+  { id: 'Arch-2F-004', building: 'Architecture Library', floor: 2, status: 'available' },
+  { id: 'Arch-2F-005', building: 'Architecture Library', floor: 2, status: 'available' },
+  
+  // Architecture Library - Floor 3
+  { id: 'Arch-3F-001', building: 'Architecture Library', floor: 3, status: 'available' },
+  { id: 'Arch-3F-002', building: 'Architecture Library', floor: 3, status: 'available' },
+  { id: 'Arch-3F-003', building: 'Architecture Library', floor: 3, status: 'available' },
+  { id: 'Arch-3F-004', building: 'Architecture Library', floor: 3, status: 'occupied', occupant: 'Mason Lewis', occupiedAt: new Date(Date.now() - 2600000) },
+  
   // Fine Arts Library - Floor 1
   { id: 'Arts-1F-001', building: 'Fine Arts Library', floor: 1, status: 'available' },
   { id: 'Arts-1F-002', building: 'Fine Arts Library', floor: 1, status: 'available' },
@@ -73,4 +86,17 @@ export const mockSeats: Seat[] = [
   { id: 'Arts-1F-004', building: 'Fine Arts Library', floor: 1, status: 'available' },
   { id: 'Arts-1F-005', building: 'Fine Arts Library', floor: 1, status: 'available' },
   { id: 'Arts-1F-006', building: 'Fine Arts Library', floor: 1, status: 'occupied', occupant: 'Ethan White', occupiedAt: new Date(Date.now() - 5800000) },
+  
+  // Fine Arts Library - Floor 2
+  { id: 'Arts-2F-001', building: 'Fine Arts Library', floor: 2, status: 'available' },
+  { id: 'Arts-2F-002', building: 'Fine Arts Library', floor: 2, status: 'available' },
+  { id: 'Arts-2F-003', building: 'Fine Arts Library', floor: 2, status: 'occupied', occupant: 'Mia Walker', occupiedAt: new Date(Date.now() - 4100000) },
+  { id: 'Arts-2F-004', building: 'Fine Arts Library', floor: 2, status: 'available' },
+  { id: 'Arts-2F-005', building: 'Fine Arts Library', floor: 2, status: 'available' },
+  
+  // Fine Arts Library - Floor 3
+  { id: 'Arts-3F-001', building: 'Fine Arts Library', floor: 3, status: 'available' },
+  { id: 'Arts-3F-002', building: 'Fine Arts Library', floor: 3, status: 'available' },
+  { id: 'Arts-3F-003', building: 'Fine Arts Library', floor: 3, status: 'available' },
+  { id: 'Arts-3F-004', building: 'Fine Arts Library', floor: 3, status: 'occupied', occupant: 'Charlotte Hall', occupiedAt: new Date(Date.now() - 3400000) },
 ];

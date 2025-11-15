@@ -14,7 +14,11 @@ import eighteenthFloor1 from '@/assets/floorplans/18th-floor-1.png';
 import eighteenthFloor2 from '@/assets/floorplans/18th-floor-2.png';
 import eighteenthFloor3 from '@/assets/floorplans/18th-floor-3.png';
 import architectureFloor1 from '@/assets/floorplans/architecture-floor-1.png';
+import architectureFloor2 from '@/assets/floorplans/architecture-floor-2.png';
+import architectureFloor3 from '@/assets/floorplans/architecture-floor-3.png';
 import fineartsFloor1 from '@/assets/floorplans/finearts-floor-1.png';
+import fineartsFloor2 from '@/assets/floorplans/finearts-floor-2.png';
+import fineartsFloor3 from '@/assets/floorplans/finearts-floor-3.png';
 
 interface FloorMapProps {
   seats: Seat[];
@@ -57,11 +61,29 @@ const getFloorPlanImage = (building: string, floor: number): string | null => {
         return null;
     }
   }
-  if (building === 'Architecture Library' && floor === 1) {
-    return architectureFloor1;
+  if (building === 'Architecture Library') {
+    switch (floor) {
+      case 1:
+        return architectureFloor1;
+      case 2:
+        return architectureFloor2;
+      case 3:
+        return architectureFloor3;
+      default:
+        return null;
+    }
   }
-  if (building === 'Fine Arts Library' && floor === 1) {
-    return fineartsFloor1;
+  if (building === 'Fine Arts Library') {
+    switch (floor) {
+      case 1:
+        return fineartsFloor1;
+      case 2:
+        return fineartsFloor2;
+      case 3:
+        return fineartsFloor3;
+      default:
+        return null;
+    }
   }
   return null;
 };
@@ -173,6 +195,27 @@ const getSeatPositions = (building: string, floor: number): SeatPosition[] => {
     ];
   }
   
+  // Architecture Library Floor 2
+  if (building === 'Architecture Library' && floor === 2) {
+    return [
+      { id: `${baseKey}-001`, x: 25, y: 30 },
+      { id: `${baseKey}-002`, x: 45, y: 30 },
+      { id: `${baseKey}-003`, x: 60, y: 40 },
+      { id: `${baseKey}-004`, x: 75, y: 30 },
+      { id: `${baseKey}-005`, x: 50, y: 65 },
+    ];
+  }
+  
+  // Architecture Library Floor 3
+  if (building === 'Architecture Library' && floor === 3) {
+    return [
+      { id: `${baseKey}-001`, x: 25, y: 35 },
+      { id: `${baseKey}-002`, x: 40, y: 35 },
+      { id: `${baseKey}-003`, x: 60, y: 35 },
+      { id: `${baseKey}-004`, x: 75, y: 60 },
+    ];
+  }
+  
   // Fine Arts Library Floor 1
   if (building === 'Fine Arts Library' && floor === 1) {
     return [
@@ -182,6 +225,27 @@ const getSeatPositions = (building: string, floor: number): SeatPosition[] => {
       { id: `${baseKey}-004`, x: 65, y: 30 },
       { id: `${baseKey}-005`, x: 80, y: 45 },
       { id: `${baseKey}-006`, x: 50, y: 80 },
+    ];
+  }
+  
+  // Fine Arts Library Floor 2
+  if (building === 'Fine Arts Library' && floor === 2) {
+    return [
+      { id: `${baseKey}-001`, x: 25, y: 30 },
+      { id: `${baseKey}-002`, x: 45, y: 30 },
+      { id: `${baseKey}-003`, x: 60, y: 50 },
+      { id: `${baseKey}-004`, x: 75, y: 30 },
+      { id: `${baseKey}-005`, x: 50, y: 70 },
+    ];
+  }
+  
+  // Fine Arts Library Floor 3
+  if (building === 'Fine Arts Library' && floor === 3) {
+    return [
+      { id: `${baseKey}-001`, x: 25, y: 35 },
+      { id: `${baseKey}-002`, x: 45, y: 35 },
+      { id: `${baseKey}-003`, x: 60, y: 45 },
+      { id: `${baseKey}-004`, x: 70, y: 65 },
     ];
   }
   
