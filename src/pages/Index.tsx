@@ -13,7 +13,7 @@ const Index = () => {
   const [selectedSeat, setSelectedSeat] = useState<Seat | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>('Thompson Library');
-  const [selectedFloor, setSelectedFloor] = useState<number | null>(3);
+  const [selectedFloor, setSelectedFloor] = useState<number | null>(1);
   const { toast } = useToast();
 
   // Auto-release seats after 2 hours
