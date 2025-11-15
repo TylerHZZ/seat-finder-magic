@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Seat, Building } from '@/types/seat';
 import { mockSeats } from '@/data/mockSeats';
+import { supabase } from '@/integrations/supabase/client';
 import { SeatDetailDialog } from '@/components/SeatDetailDialog';
 import { BuildingSelector } from '@/components/BuildingSelector';
 import { FloorMap } from '@/components/FloorMap';
 import { StatsOverview } from '@/components/StatsOverview';
 import { useToast } from '@/hooks/use-toast';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Smartphone } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const [seats, setSeats] = useState<Seat[]>(mockSeats);
@@ -15,29 +18,57 @@ const Index = () => {
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>('Thompson Library');
   const [selectedFloor, setSelectedFloor] = useState<number | null>(1);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  // Auto-release seats after 2 hours
+  // Load reservations from database and merge with mock data
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSeats((prevSeats) =>
-        prevSeats.map((seat) => {
-          if (seat.status === 'occupied' && seat.occupiedAt) {
-            const elapsed = Date.now() - seat.occupiedAt.getTime();
-            if (elapsed >= 7200000) {
-              toast({
-                title: 'Seat Auto-Released',
-                description: `${seat.id} has been automatically released after 2 hours.`,
-              });
-              return { ...seat, status: 'available', occupant: undefined, occupiedAt: undefined };
-            }
-          }
-          return seat;
-        })
-      );
-    }, 60000);
+    loadReservations();
 
-    return () => clearInterval(interval);
-  }, [toast]);
+    // Listen to realtime updates
+    const channel = supabase
+      .channel('reservations-realtime')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'reservations'
+        },
+        () => {
+          loadReservations();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const loadReservations = async () => {
+    const { data: reservations } = await supabase
+      .from('reservations')
+      .select('*')
+      .eq('status', 'occupied');
+
+    if (reservations) {
+      // Merge reservations with mock seats
+      const updatedSeats = mockSeats.map(seat => {
+        const reservation = reservations.find(r => r.seat_id === seat.id);
+        if (reservation) {
+          return {
+            ...seat,
+            status: 'occupied' as const,
+            occupant: reservation.user_name || 'Unknown',
+            occupiedAt: new Date(reservation.occupied_at)
+          };
+        }
+        return { ...seat, status: 'available' as const, occupant: undefined, occupiedAt: undefined };
+      });
+      
+      setSeats(updatedSeats);
+    }
+  };
 
   const handleSeatClick = (seat: Seat) => {
     setSelectedSeat(seat);
@@ -45,40 +76,18 @@ const Index = () => {
   };
 
   const handleReserve = () => {
-    if (!selectedSeat) return;
-    
-    setSeats((prevSeats) =>
-      prevSeats.map((seat) =>
-        seat.id === selectedSeat.id
-          ? { ...seat, status: 'occupied', occupant: 'Current User', occupiedAt: new Date() }
-          : seat
-      )
-    );
-    
     toast({
-      title: 'Seat Reserved! 🎉',
-      description: `You have successfully reserved ${selectedSeat.id}.`,
+      title: 'Desktop Reservation',
+      description: 'Please use the mobile app to scan and reserve seats.',
     });
-    
     setDialogOpen(false);
   };
 
   const handleRelease = () => {
-    if (!selectedSeat) return;
-    
-    setSeats((prevSeats) =>
-      prevSeats.map((seat) =>
-        seat.id === selectedSeat.id
-          ? { ...seat, status: 'available', occupant: undefined, occupiedAt: undefined }
-          : seat
-      )
-    );
-    
     toast({
-      title: 'Seat Released',
-      description: `${selectedSeat.id} is now available for others.`,
+      title: 'Desktop Release',
+      description: 'Please use the mobile app to release seats.',
     });
-    
     setDialogOpen(false);
   };
 
@@ -125,7 +134,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       {/* Hero Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 py-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Sparkles className="h-6 w-6 text-primary" />
@@ -139,6 +148,14 @@ const Index = () => {
               </p>
             </div>
           </div>
+
+          <Button 
+            onClick={() => navigate('/mobile')}
+            className="gap-2"
+          >
+            <Smartphone className="h-4 w-4" />
+            Mobile View
+          </Button>
         </div>
       </header>
 
