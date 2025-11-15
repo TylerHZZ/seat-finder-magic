@@ -202,9 +202,9 @@ export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps)
         </div>
       </div>
       
-      <div className="relative w-full overflow-auto rounded-lg border-2 border-border bg-white">
+      <div className="relative w-full overflow-auto rounded-lg border-2 border-border bg-gray-100">
         <div 
-          className="relative w-full h-[600px] transition-transform duration-300"
+          className="relative w-full h-[600px] bg-gradient-to-br from-gray-50 to-gray-100 transition-transform duration-300"
           style={{ transform: `scale(${zoom})`, transformOrigin: 'center center' }}
         >
           {/* Floor plan background image */}
