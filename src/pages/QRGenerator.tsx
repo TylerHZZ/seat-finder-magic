@@ -46,16 +46,14 @@ const QRGenerator = () => {
 
   const generateQRCode = async () => {
     const seatId = generateSeatId();
-    const qrData = JSON.stringify({
-      seatId,
-      building: selectedBuilding,
-      floor: parseInt(selectedFloor)
-    });
+    // Simplified format - just the seat ID string, easier to scan
+    const qrData = seatId;
 
     try {
       const dataUrl = await QRCode.toDataURL(qrData, {
         width: 400,
         margin: 2,
+        errorCorrectionLevel: 'H',
         color: {
           dark: '#BB0000',
           light: '#FFFFFF'
@@ -230,7 +228,7 @@ const QRGenerator = () => {
           <ol className="space-y-2 text-sm text-blue-800">
             <li className="flex gap-2">
               <span className="font-semibold">1.</span>
-              <span>Generate and print/display this QR code</span>
+              <span>Direct URL: Type /qr-generator in the browser address bar</span>
             </li>
             <li className="flex gap-2">
               <span className="font-semibold">2.</span>

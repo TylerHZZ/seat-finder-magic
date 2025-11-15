@@ -155,15 +155,6 @@ const Index = () => {
             <Smartphone className="h-4 w-4" />
             Mobile View
           </Button>
-          
-          <Button 
-            onClick={() => navigate('/qr-generator')}
-            variant="outline"
-            className="gap-2"
-          >
-            <QrCode className="h-4 w-4" />
-            QR Generator
-          </Button>
         </div>
       </header>
 
