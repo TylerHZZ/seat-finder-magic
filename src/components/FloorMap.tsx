@@ -2,7 +2,7 @@ import { Seat } from '@/types/seat';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
 // Import floor plan images
@@ -130,11 +130,31 @@ const getSeatPositions = (building: string, floor: number): SeatPosition[] => {
 
 export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps) => {
   const [zoom, setZoom] = useState(1);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const seatPositions = getSeatPositions(building, floor);
   const floorPlanImage = getFloorPlanImage(building, floor);
   
   // Create a map of seat IDs to seat data
   const seatMap = new Map(seats.map(seat => [seat.id, seat]));
+  
+  // Reset image loading state when floor or building changes
+  useEffect(() => {
+    setImageLoaded(false);
+    setImageError(false);
+  }, [building, floor]);
+  
+  // Debug logging
+  console.log('FloorMap render:', { 
+    building, 
+    floor, 
+    floorPlanImage, 
+    hasFloorPlanImage: !!floorPlanImage,
+    seatPositions: seatPositions.length,
+    seats: seats.length,
+    imageLoaded, 
+    imageError 
+  });
   
   const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.2, 2));
   const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.2, 0.6));
@@ -181,18 +201,38 @@ export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps)
         </div>
       </div>
       
-      <div className="relative w-full overflow-auto rounded-lg border-2 border-border bg-muted/10">
+      <div className="relative w-full overflow-auto rounded-lg border-2 border-border bg-white">
         <div 
-          className="relative aspect-[4/3] min-h-[500px] transition-transform duration-300"
+          className="relative w-full h-[600px] transition-transform duration-300"
           style={{ transform: `scale(${zoom})`, transformOrigin: 'center center' }}
         >
           {/* Floor plan background or generated layout */}
           {floorPlanImage ? (
-            <img
-              src={floorPlanImage}
-              alt={`${building} Floor ${floor} plan`}
-              className="absolute inset-0 w-full h-full object-contain"
-            />
+            <>
+              <img
+                src={floorPlanImage}
+                alt={`${building} Floor ${floor} plan`}
+                className="absolute inset-0 w-full h-full object-contain"
+                onLoad={() => {
+                  console.log('Image loaded successfully:', floorPlanImage);
+                  setImageLoaded(true);
+                }}
+                onError={(e) => {
+                  console.error('Image failed to load:', floorPlanImage, e);
+                  setImageError(true);
+                }}
+              />
+              {!imageLoaded && !imageError && (
+                <div className="absolute inset-0 flex items-center justify-center bg-muted/20">
+                  <p className="text-muted-foreground">Loading floor plan...</p>
+                </div>
+              )}
+              {imageError && (
+                <div className="absolute inset-0 flex items-center justify-center bg-destructive/10">
+                  <p className="text-destructive">Failed to load floor plan image</p>
+                </div>
+              )}
+            </>
           ) : (
             <div className="absolute inset-0 bg-muted/20">
               {/* Fallback SVG layout for buildings without floor plans */}
