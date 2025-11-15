@@ -10,6 +10,11 @@ import thompsonFloor1 from '@/assets/floorplans/thompson-floor-1.png';
 import thompsonFloor2 from '@/assets/floorplans/thompson-floor-2.png';
 import thompsonFloor3 from '@/assets/floorplans/thompson-floor-3.png';
 import thompsonFloor4 from '@/assets/floorplans/thompson-floor-4.png';
+import eighteenthFloor1 from '@/assets/floorplans/18th-floor-1.png';
+import eighteenthFloor2 from '@/assets/floorplans/18th-floor-2.png';
+import eighteenthFloor3 from '@/assets/floorplans/18th-floor-3.png';
+import architectureFloor1 from '@/assets/floorplans/architecture-floor-1.png';
+import fineartsFloor1 from '@/assets/floorplans/finearts-floor-1.png';
 
 interface FloorMapProps {
   seats: Seat[];
@@ -40,12 +45,35 @@ const getFloorPlanImage = (building: string, floor: number): string | null => {
         return null;
     }
   }
+  if (building === '18th Avenue Library') {
+    switch (floor) {
+      case 1:
+        return eighteenthFloor1;
+      case 2:
+        return eighteenthFloor2;
+      case 3:
+        return eighteenthFloor3;
+      default:
+        return null;
+    }
+  }
+  if (building === 'Architecture Library' && floor === 1) {
+    return architectureFloor1;
+  }
+  if (building === 'Fine Arts Library' && floor === 1) {
+    return fineartsFloor1;
+  }
   return null;
 };
 
 // Define seat positions based on actual floor plans
 const getSeatPositions = (building: string, floor: number): SeatPosition[] => {
-  const prefix = building === 'Thompson Library' ? 'Thompson' : building;
+  let prefix = building;
+  if (building === 'Thompson Library') prefix = 'Thompson';
+  if (building === '18th Avenue Library') prefix = '18th';
+  if (building === 'Architecture Library') prefix = 'Arch';
+  if (building === 'Fine Arts Library') prefix = 'Arts';
+  
   const baseKey = `${prefix}-${floor}F`;
   
   // Thompson Library Floor 1 - Study Spaces around East Atrium
@@ -100,33 +128,72 @@ const getSeatPositions = (building: string, floor: number): SeatPosition[] => {
     ];
   }
   
-  // SEL Floor 1
-  if (building === 'SEL' && floor === 1) {
+  // 18th Avenue Library Floor 1
+  if (building === '18th Avenue Library' && floor === 1) {
     return [
-      { id: `${baseKey}-001`, x: 20, y: 35 },
-      { id: `${baseKey}-002`, x: 50, y: 35 },
-      { id: `${baseKey}-003`, x: 80, y: 35 },
+      { id: `${baseKey}-001`, x: 20, y: 30 },
+      { id: `${baseKey}-002`, x: 35, y: 30 },
+      { id: `${baseKey}-003`, x: 50, y: 30 },
+      { id: `${baseKey}-004`, x: 65, y: 30 },
+      { id: `${baseKey}-005`, x: 80, y: 30 },
+      { id: `${baseKey}-006`, x: 35, y: 70 },
     ];
   }
   
-  // SEL Floor 2
-  if (building === 'SEL' && floor === 2) {
+  // 18th Avenue Library Floor 2
+  if (building === '18th Avenue Library' && floor === 2) {
     return [
-      { id: `${baseKey}-001`, x: 50, y: 40 },
+      { id: `${baseKey}-001`, x: 25, y: 35 },
+      { id: `${baseKey}-002`, x: 45, y: 35 },
+      { id: `${baseKey}-003`, x: 65, y: 35 },
+      { id: `${baseKey}-004`, x: 35, y: 65 },
+      { id: `${baseKey}-005`, x: 65, y: 65 },
     ];
   }
   
-  // Union Floor 2
-  if (building === 'Union' && floor === 2) {
+  // 18th Avenue Library Floor 3
+  if (building === '18th Avenue Library' && floor === 3) {
     return [
-      { id: `${baseKey}-001`, x: 25, y: 25 },
-      { id: `${baseKey}-002`, x: 50, y: 25 },
-      { id: `${baseKey}-003`, x: 75, y: 25 },
-      { id: `${baseKey}-004`, x: 50, y: 60 },
+      { id: `${baseKey}-001`, x: 30, y: 30 },
+      { id: `${baseKey}-002`, x: 70, y: 30 },
+      { id: `${baseKey}-003`, x: 30, y: 70 },
+      { id: `${baseKey}-004`, x: 70, y: 70 },
     ];
   }
   
-  return [];
+  // Architecture Library Floor 1
+  if (building === 'Architecture Library' && floor === 1) {
+    return [
+      { id: `${baseKey}-001`, x: 20, y: 25 },
+      { id: `${baseKey}-002`, x: 35, y: 25 },
+      { id: `${baseKey}-003`, x: 50, y: 40 },
+      { id: `${baseKey}-004`, x: 65, y: 25 },
+      { id: `${baseKey}-005`, x: 80, y: 25 },
+      { id: `${baseKey}-006`, x: 50, y: 70 },
+    ];
+  }
+  
+  // Fine Arts Library Floor 1
+  if (building === 'Fine Arts Library' && floor === 1) {
+    return [
+      { id: `${baseKey}-001`, x: 20, y: 30 },
+      { id: `${baseKey}-002`, x: 35, y: 45 },
+      { id: `${baseKey}-003`, x: 50, y: 60 },
+      { id: `${baseKey}-004`, x: 65, y: 30 },
+      { id: `${baseKey}-005`, x: 80, y: 45 },
+      { id: `${baseKey}-006`, x: 50, y: 80 },
+    ];
+  }
+  
+  // Default grid layout for other floors
+  return [
+    { id: `${baseKey}-001`, x: 25, y: 35 },
+    { id: `${baseKey}-002`, x: 50, y: 35 },
+    { id: `${baseKey}-003`, x: 75, y: 35 },
+    { id: `${baseKey}-004`, x: 25, y: 65 },
+    { id: `${baseKey}-005`, x: 50, y: 65 },
+    { id: `${baseKey}-006`, x: 75, y: 65 },
+  ];
 };
 
 export const FloorMap = ({ seats, onSeatClick, building, floor }: FloorMapProps) => {

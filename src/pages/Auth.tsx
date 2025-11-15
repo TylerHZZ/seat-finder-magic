@@ -31,14 +31,14 @@ const Auth = () => {
 
     if (error) {
       toast({
-        title: '错误',
+        title: 'Error',
         description: error.message,
         variant: 'destructive',
       });
     } else {
       toast({
-        title: '注册成功！',
-        description: '账户已创建，现在可以登录了。',
+        title: 'Sign Up Successful!',
+        description: 'Account created. You can now log in.',
       });
     }
 
@@ -56,14 +56,14 @@ const Auth = () => {
 
     if (error) {
       toast({
-        title: '错误',
+        title: 'Error',
         description: error.message,
         variant: 'destructive',
       });
     } else {
       toast({
         title: '欢迎！',
-        description: '登录成功。',
+        description: 'Successfully logged in.',
       });
       navigate('/mobile');
     }
@@ -93,14 +93,14 @@ const Auth = () => {
           <CardHeader>
             <CardTitle className="text-2xl text-center">欢迎</CardTitle>
             <CardDescription className="text-center">
-              登录或注册以使用扫码功能
+              Log in or sign up to use QR scanning
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="signin">登录</TabsTrigger>
-                <TabsTrigger value="signup">注册</TabsTrigger>
+                <TabsTrigger value="signin">Sign In</TabsTrigger>
+                <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
 
               <TabsContent value="signin">
@@ -130,7 +130,7 @@ const Auth = () => {
                   </div>
 
                   <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? '登录中...' : '登录'}
+                    {loading ? 'Signing In...' : 'Sign In'}
                   </Button>
                 </form>
               </TabsContent>
@@ -163,7 +163,7 @@ const Auth = () => {
                   </div>
 
                   <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? '注册中...' : '注册'}
+                    {loading ? 'Signing Up...' : 'Sign Up'}
                   </Button>
                 </form>
               </TabsContent>

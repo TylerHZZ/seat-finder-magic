@@ -192,8 +192,8 @@ const Scan = () => {
         </Button>
         <img src={osuLogo} alt="OSU Logo" className="h-10 w-10 object-contain" />
         <div>
-          <h1 className="text-xl font-bold">扫描二维码</h1>
-          <p className="text-sm opacity-90">对准座位二维码</p>
+          <h1 className="text-xl font-bold">Scan QR Code</h1>
+          <p className="text-sm opacity-90">Point at seat QR code</p>
         </div>
       </header>
 
@@ -206,7 +206,7 @@ const Scan = () => {
             <div>
               <h2 className="font-semibold">扫码说明</h2>
               <p className="text-sm text-muted-foreground">
-                将相机对准座位二维码
+                Point camera at seat QR code
               </p>
             </div>
           </div>
@@ -227,15 +227,15 @@ const Scan = () => {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary">•</span>
-              <span>首次扫描 = 占用座位</span>
+              <span>First scan = Occupy seat</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary">•</span>
-              <span>再次扫描同一码 = 释放座位</span>
+              <span>Scan same code again = Release seat</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary">•</span>
-              <span>一次只能占用一个座位</span>
+              <span>Only one seat can be occupied at a time</span>
             </li>
           </ul>
         </Card>

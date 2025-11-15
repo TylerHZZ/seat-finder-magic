@@ -37,15 +37,40 @@ export const mockSeats: Seat[] = [
   { id: 'Thompson-4F-003', building: 'Thompson Library', floor: 4, status: 'available' },
   { id: 'Thompson-4F-004', building: 'Thompson Library', floor: 4, status: 'occupied', occupant: 'Sarah Williams', occupiedAt: new Date(Date.now() - 1800000) },
   
-  // Union
-  { id: 'Union-2F-001', building: 'Union', floor: 2, status: 'available' },
-  { id: 'Union-2F-002', building: 'Union', floor: 2, status: 'available' },
-  { id: 'Union-2F-003', building: 'Union', floor: 2, status: 'occupied', occupant: 'David Brown', occupiedAt: new Date(Date.now() - 4500000) },
-  { id: 'Union-2F-004', building: 'Union', floor: 2, status: 'available' },
+  // 18th Avenue Library - Floor 1
+  { id: '18th-1F-001', building: '18th Avenue Library', floor: 1, status: 'available' },
+  { id: '18th-1F-002', building: '18th Avenue Library', floor: 1, status: 'available' },
+  { id: '18th-1F-003', building: '18th Avenue Library', floor: 1, status: 'occupied', occupant: 'Emma Wilson', occupiedAt: new Date(Date.now() - 3300000) },
+  { id: '18th-1F-004', building: '18th Avenue Library', floor: 1, status: 'available' },
+  { id: '18th-1F-005', building: '18th Avenue Library', floor: 1, status: 'available' },
+  { id: '18th-1F-006', building: '18th Avenue Library', floor: 1, status: 'occupied', occupant: 'Lucas Brown', occupiedAt: new Date(Date.now() - 4200000) },
   
-  // SEL
-  { id: 'SEL-1F-001', building: 'SEL', floor: 1, status: 'available' },
-  { id: 'SEL-1F-002', building: 'SEL', floor: 1, status: 'available' },
-  { id: 'SEL-1F-003', building: 'SEL', floor: 1, status: 'available' },
-  { id: 'SEL-2F-001', building: 'SEL', floor: 2, status: 'occupied', occupant: 'Emily Davis', occupiedAt: new Date(Date.now() - 6300000) },
+  // 18th Avenue Library - Floor 2
+  { id: '18th-2F-001', building: '18th Avenue Library', floor: 2, status: 'available' },
+  { id: '18th-2F-002', building: '18th Avenue Library', floor: 2, status: 'available' },
+  { id: '18th-2F-003', building: '18th Avenue Library', floor: 2, status: 'available' },
+  { id: '18th-2F-004', building: '18th Avenue Library', floor: 2, status: 'occupied', occupant: 'Olivia Martinez', occupiedAt: new Date(Date.now() - 5500000) },
+  { id: '18th-2F-005', building: '18th Avenue Library', floor: 2, status: 'available' },
+  
+  // 18th Avenue Library - Floor 3
+  { id: '18th-3F-001', building: '18th Avenue Library', floor: 3, status: 'available' },
+  { id: '18th-3F-002', building: '18th Avenue Library', floor: 3, status: 'available' },
+  { id: '18th-3F-003', building: '18th Avenue Library', floor: 3, status: 'occupied', occupant: 'Noah Davis', occupiedAt: new Date(Date.now() - 2800000) },
+  { id: '18th-3F-004', building: '18th Avenue Library', floor: 3, status: 'available' },
+  
+  // Architecture Library - Floor 1
+  { id: 'Arch-1F-001', building: 'Architecture Library', floor: 1, status: 'available' },
+  { id: 'Arch-1F-002', building: 'Architecture Library', floor: 1, status: 'available' },
+  { id: 'Arch-1F-003', building: 'Architecture Library', floor: 1, status: 'occupied', occupant: 'Sophia Anderson', occupiedAt: new Date(Date.now() - 3900000) },
+  { id: 'Arch-1F-004', building: 'Architecture Library', floor: 1, status: 'available' },
+  { id: 'Arch-1F-005', building: 'Architecture Library', floor: 1, status: 'available' },
+  { id: 'Arch-1F-006', building: 'Architecture Library', floor: 1, status: 'occupied', occupant: 'Liam Thomas', occupiedAt: new Date(Date.now() - 4700000) },
+  
+  // Fine Arts Library - Floor 1
+  { id: 'Arts-1F-001', building: 'Fine Arts Library', floor: 1, status: 'available' },
+  { id: 'Arts-1F-002', building: 'Fine Arts Library', floor: 1, status: 'available' },
+  { id: 'Arts-1F-003', building: 'Fine Arts Library', floor: 1, status: 'occupied', occupant: 'Ava Jackson', occupiedAt: new Date(Date.now() - 2100000) },
+  { id: 'Arts-1F-004', building: 'Fine Arts Library', floor: 1, status: 'available' },
+  { id: 'Arts-1F-005', building: 'Fine Arts Library', floor: 1, status: 'available' },
+  { id: 'Arts-1F-006', building: 'Fine Arts Library', floor: 1, status: 'occupied', occupant: 'Ethan White', occupiedAt: new Date(Date.now() - 5800000) },
 ];
