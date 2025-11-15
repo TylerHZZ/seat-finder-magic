@@ -84,7 +84,7 @@ const Auth = () => {
         </Button>
         <div className="flex items-center gap-3">
           <img src={osuLogo} alt="OSU Logo" className="h-14 w-14 object-contain" />
-          <h1 className="text-xl font-bold">OSU Library Navigator</h1>
+          <h1 className="text-xl font-bold">OSU Seat Navigator</h1>
         </div>
       </header>
 

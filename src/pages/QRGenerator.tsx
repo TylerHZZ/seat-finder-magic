@@ -106,7 +106,7 @@ const QRGenerator = () => {
           </head>
           <body>
             <div class="qr-container">
-              <h1>OSU Library Navigator</h1>
+              <h1>OSU Seat Navigator</h1>
               <div class="seat-info">${generateSeatId()}</div>
               <div style="margin: 10px 0;">${selectedBuilding} - Floor ${selectedFloor}</div>
               <img src="${qrDataUrl}" alt="QR Code" />

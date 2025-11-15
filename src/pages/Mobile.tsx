@@ -143,7 +143,7 @@ const Mobile = () => {
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4">
         <Card className="p-8 max-w-md w-full text-center">
           <img src={osuLogo} alt="OSU Logo" className="h-24 w-24 mx-auto mb-4 object-contain" />
-          <h1 className="text-2xl font-bold mb-4">OSU Library Navigator</h1>
+          <h1 className="text-2xl font-bold mb-4">OSU Seat Navigator</h1>
           <p className="text-muted-foreground mb-6">Please log in to scan and reserve seats</p>
           <Button onClick={() => navigate('/auth')} className="w-full">
             Sign In
@@ -159,7 +159,7 @@ const Mobile = () => {
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-3">
             <img src={osuLogo} alt="OSU Logo" className="h-14 w-14 object-contain" />
-            <h1 className="text-2xl font-bold">OSU Library Navigator</h1>
+            <h1 className="text-2xl font-bold">OSU Seat Navigator</h1>
           </div>
           <div className="flex items-center gap-2">
             <Button
