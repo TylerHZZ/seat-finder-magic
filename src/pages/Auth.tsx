@@ -21,6 +21,37 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
+    // Custom validation
+    if (!email || !password) {
+      toast({
+        title: 'Error',
+        description: 'Please fill in all fields',
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (!email.includes('@')) {
+      toast({
+        title: 'Error',
+        description: 'Please enter a valid email address',
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      toast({
+        title: 'Error',
+        description: 'Password must be at least 6 characters',
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -48,6 +79,27 @@ const Auth = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // Custom validation
+    if (!email || !password) {
+      toast({
+        title: 'Error',
+        description: 'Please fill in all fields',
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (!email.includes('@')) {
+      toast({
+        title: 'Error',
+        description: 'Please enter a valid email address',
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return;
+    }
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -113,7 +165,6 @@ const Auth = () => {
                       placeholder="your-email@osu.edu"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      required
                     />
                   </div>
 
@@ -125,7 +176,6 @@ const Auth = () => {
                       placeholder="Enter password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      required
                     />
                   </div>
 
@@ -145,7 +195,6 @@ const Auth = () => {
                       placeholder="your-email@osu.edu"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      required
                     />
                   </div>
 
@@ -157,8 +206,6 @@ const Auth = () => {
                       placeholder="At least 6 characters"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      required
-                      minLength={6}
                     />
                   </div>
 
