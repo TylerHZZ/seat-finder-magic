@@ -7,4 +7,4 @@ export interface Seat {
   occupiedAt?: Date;
 }
 
-export type Building = 'Thompson Library' | 'Union' | 'SEL' | 'Science & Engineering Library';
+export type Building = 'Thompson Library' | '18th Avenue Library' | 'Architecture Library' | 'Fine Arts Library';

@@ -26,9 +26,9 @@ export const FilterBar = ({
   const buildings: (Building | 'all')[] = [
     'all',
     'Thompson Library',
-    'Union',
-    'SEL',
-    'Science & Engineering Library',
+    '18th Avenue Library',
+    'Architecture Library',
+    'Fine Arts Library',
   ];
 
   return (

@@ -75,8 +75,8 @@ const Mobile = () => {
         .eq('id', reservation.id);
         
       toast({
-        title: '确认您的座位',
-        description: '您已占用此座位一段时间。请确认您仍在使用它。',
+        title: 'Confirm Your Seat',
+        description: 'You have occupied this seat for a while. Please confirm you are still using it.',
         duration: 10000,
       });
     }
@@ -91,8 +91,8 @@ const Mobile = () => {
         .eq('id', reservation.id);
         
       toast({
-        title: '座位已释放',
-        description: '您的座位因长时间无活动已自动释放。',
+        title: 'Seat Released',
+        description: 'Your seat has been automatically released due to inactivity.',
       });
     }
   };
@@ -102,7 +102,7 @@ const Mobile = () => {
     const minutes = Math.floor((Date.now() - new Date(currentReservation.occupied_at).getTime()) / 60000);
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    return hours > 0 ? `${hours}小时 ${mins}分钟` : `${mins}分钟`;
+    return hours > 0 ? `${hours}h ${mins}min` : `${mins}min`;
   };
 
   const confirmOccupancy = async () => {
@@ -118,8 +118,8 @@ const Mobile = () => {
 
     if (!error) {
       toast({
-        title: '已确认',
-        description: '您的座位占用已确认。',
+        title: 'Confirmed',
+        description: 'Your seat occupation has been confirmed.',
       });
       checkCurrentReservation();
     }
@@ -144,9 +144,9 @@ const Mobile = () => {
         <Card className="p-8 max-w-md w-full text-center">
           <img src={osuLogo} alt="OSU Logo" className="h-16 w-16 mx-auto mb-4 object-contain" />
           <h1 className="text-2xl font-bold mb-4">OSU Seat Finder</h1>
-          <p className="text-muted-foreground mb-6">请登录以扫描和预订座位</p>
+          <p className="text-muted-foreground mb-6">Please log in to scan and reserve seats</p>
           <Button onClick={() => navigate('/auth')} className="w-full">
-            登录
+            Sign In
           </Button>
         </Card>
       </div>
@@ -191,10 +191,10 @@ const Mobile = () => {
           <Card className="p-6 border-2 border-primary bg-primary/5">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h2 className="text-lg font-semibold text-foreground">当前座位</h2>
+                <h2 className="text-lg font-semibold text-foreground">Current Seat</h2>
                 <p className="text-sm text-muted-foreground">您有一个激活的预定</p>
               </div>
-              <Badge className="bg-primary">已占用</Badge>
+              <Badge className="bg-primary">Occupied</Badge>
             </div>
 
             <div className="space-y-3">
@@ -207,7 +207,7 @@ const Mobile = () => {
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="h-4 w-4 text-muted-foreground" />
-                <span>已占用 {getTimeOccupied()}</span>
+                <span>Occupied for {getTimeOccupied()}</span>
               </div>
             </div>
 
@@ -215,14 +215,14 @@ const Mobile = () => {
               <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-sm font-medium text-yellow-900 mb-2 flex items-center gap-2">
                   <AlertCircle className="h-4 w-4" />
-                  请确认您仍在使用此座位
+                  Please confirm you are still using this seat
                 </p>
                 <Button 
                   onClick={confirmOccupancy}
                   variant="outline"
                   className="w-full"
                 >
-                  确认占用
+                  Confirm Occupation
                 </Button>
               </div>
             )}
@@ -232,7 +232,7 @@ const Mobile = () => {
               variant="destructive"
               className="w-full mt-4"
             >
-              释放座位
+              Release Seat
             </Button>
           </Card>
         ) : (
@@ -241,11 +241,11 @@ const Mobile = () => {
               <QrCode className="h-12 w-12 mx-auto mb-3 text-muted-foreground" />
               <h2 className="text-lg font-semibold mb-2">无激活的预定</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                扫描二维码以预订座位
+                Scan QR code to reserve a seat
               </p>
               <Button onClick={() => navigate('/scan')} className="w-full">
                 <QrCode className="h-4 w-4 mr-2" />
-                扫描二维码
+                Scan QR Code
               </Button>
             </div>
           </Card>
@@ -259,19 +259,19 @@ const Mobile = () => {
           <ul className="text-sm text-muted-foreground space-y-2">
             <li className="flex items-start gap-2">
               <span className="text-primary">1.</span>
-              <span>点击"扫描二维码"按钮</span>
+              <span>Click "Scan QR Code" button</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary">2.</span>
-              <span>将相机对准座位上的二维码</span>
+              <span>Point camera at seat QR code</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary">3.</span>
-              <span>座位将自动预订给您</span>
+              <span>Seat will be automatically reserved</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary">4.</span>
-              <span>使用完毕后点击"释放座位"</span>
+              <span>Click "Release Seat" when done</span>
             </li>
           </ul>
         </Card>
@@ -280,9 +280,9 @@ const Mobile = () => {
           <div className="flex items-start gap-3">
             <AlertCircle className="h-5 w-5 text-blue-600 mt-0.5" />
             <div className="text-sm">
-              <p className="font-medium text-blue-900 mb-1">自动释放政策</p>
+              <p className="font-medium text-blue-900 mb-1">Auto-Release Policy</p>
               <p className="text-blue-700">
-                占用1.5小时后需要确认。如果2小时内未确认，座位将自动释放。
+                Confirmation required after 1.5 hours of occupation. Seat will auto-release if not confirmed within 2 hours.
               </p>
             </div>
           </div>
