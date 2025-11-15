@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import { Html5QrcodeScanner, Html5Qrcode } from 'html5-qrcode';
 import { supabase } from '@/integrations/supabase/client';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, QrCode } from 'lucide-react';
+import { ArrowLeft, QrCode, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import osuLogo from '@/assets/osu-logo.png';
 import { z } from 'zod';
@@ -21,6 +21,7 @@ const Scan = () => {
   const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     checkUser();
@@ -200,6 +201,30 @@ const Scan = () => {
     console.log('Scan error:', error);
   };
 
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const html5QrCode = new Html5Qrcode('qr-reader-file');
+      const decodedText = await html5QrCode.scanFile(file, true);
+      await onScanSuccess(decodedText);
+      html5QrCode.clear();
+    } catch (error) {
+      console.error('Error scanning image:', error);
+      toast({
+        title: 'Scan Failed',
+        description: 'Could not find a QR code in the image. Please try another image.',
+        variant: 'destructive',
+      });
+    }
+    
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4">
@@ -249,6 +274,40 @@ const Scan = () => {
 
           {/* QR Scanner */}
           <div id="qr-reader" className="w-full rounded-lg overflow-hidden"></div>
+          <div id="qr-reader-file" className="hidden"></div>
+          
+          <div className="mt-4 space-y-3">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-border"></div>
+              </div>
+              <div className="relative flex justify-center">
+                <span className="bg-card px-2 text-xs text-muted-foreground">OR</span>
+              </div>
+            </div>
+            
+            <div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                className="hidden"
+                id="qr-file-upload"
+              />
+              <Button
+                variant="outline"
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full"
+              >
+                <Upload className="h-4 w-4 mr-2" />
+                Upload QR Code Image
+              </Button>
+              <p className="text-xs text-muted-foreground text-center mt-1">
+                Upload an image containing a QR code
+              </p>
+            </div>
+          </div>
         </Card>
 
         <Card className="p-4 bg-muted/30 border-primary/20">
