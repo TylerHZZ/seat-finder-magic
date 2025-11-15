@@ -213,7 +213,7 @@ const Scan = () => {
               <QrCode className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h2 className="font-semibold">扫码说明</h2>
+              <h2 className="font-semibold">Scanning Instructions</h2>
               <p className="text-sm text-muted-foreground">
                 Point camera at seat QR code
               </p>
@@ -227,12 +227,12 @@ const Scan = () => {
         <Card className="p-4 bg-muted/30 border-primary/20">
           <h3 className="font-medium mb-3 flex items-center gap-2">
             <span className="text-primary">💡</span>
-            使用提示
+            Usage Tips
           </h3>
           <ul className="text-sm text-muted-foreground space-y-2">
             <li className="flex items-start gap-2">
               <span className="text-primary">•</span>
-              <span>保持手机稳定，确保光线充足</span>
+              <span>Keep phone steady, ensure sufficient lighting</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary">•</span>
