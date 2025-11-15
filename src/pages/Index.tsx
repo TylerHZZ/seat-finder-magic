@@ -7,7 +7,7 @@ import { BuildingSelector } from '@/components/BuildingSelector';
 import { FloorMap } from '@/components/FloorMap';
 import { StatsOverview } from '@/components/StatsOverview';
 import { useToast } from '@/hooks/use-toast';
-import { Sparkles, Smartphone } from 'lucide-react';
+import { Sparkles, Smartphone, QrCode } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import osuLogo from '@/assets/osu-logo.png';
@@ -136,14 +136,14 @@ const Index = () => {
       {/* Hero Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
         <div className="container mx-auto px-4 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src={osuLogo} alt="OSU Logo" className="h-12 w-12 object-contain" />
+          <div className="flex items-center gap-4">
+            <img src={osuLogo} alt="OSU Logo" className="h-20 w-20 object-contain" />
             <div>
               <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                OSU Seat Finder
+                OSU Library Navigator
               </h1>
               <p className="text-muted-foreground text-sm">
-                Find your perfect study spot across campus
+                Premium study space management across campus
               </p>
             </div>
           </div>
@@ -154,6 +154,15 @@ const Index = () => {
           >
             <Smartphone className="h-4 w-4" />
             Mobile View
+          </Button>
+          
+          <Button 
+            onClick={() => navigate('/qr-generator')}
+            variant="outline"
+            className="gap-2"
+          >
+            <QrCode className="h-4 w-4" />
+            QR Generator
           </Button>
         </div>
       </header>
