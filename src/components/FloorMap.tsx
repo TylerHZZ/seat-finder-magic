@@ -45,7 +45,8 @@ const getFloorPlanImage = (building: string, floor: number): string | null => {
 
 // Define seat positions based on actual floor plans
 const getSeatPositions = (building: string, floor: number): SeatPosition[] => {
-  const baseKey = `${building}-${floor}F`;
+  const prefix = building === 'Thompson Library' ? 'Thompson' : building;
+  const baseKey = `${prefix}-${floor}F`;
   
   // Thompson Library Floor 1 - Study Spaces around East Atrium
   if (building === 'Thompson Library' && floor === 1) {
