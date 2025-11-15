@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/hooks/use-toast';
+import { ArrowLeft } from 'lucide-react';
+import osuLogo from '@/assets/osu-logo.png';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -29,14 +31,14 @@ const Auth = () => {
 
     if (error) {
       toast({
-        title: 'Error',
+        title: '错误',
         description: error.message,
         variant: 'destructive',
       });
     } else {
       toast({
-        title: 'Success!',
-        description: 'Account created. You can now sign in.',
+        title: '注册成功！',
+        description: '账户已创建，现在可以登录了。',
       });
     }
 
@@ -54,14 +56,14 @@ const Auth = () => {
 
     if (error) {
       toast({
-        title: 'Error',
+        title: '错误',
         description: error.message,
         variant: 'destructive',
       });
     } else {
       toast({
-        title: 'Welcome!',
-        description: 'You have successfully signed in.',
+        title: '欢迎！',
+        description: '登录成功。',
       });
       navigate('/mobile');
     }
@@ -70,95 +72,105 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4">
-      <Card className="w-full max-w-md p-8">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-primary mb-2">OSU Seat Finder</h1>
-          <p className="text-muted-foreground">Sign in to reserve study seats</p>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <header className="bg-primary text-primary-foreground p-4 shadow-sm flex items-center gap-3">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate('/')}
+          className="text-primary-foreground hover:bg-primary-foreground/10"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
+        <div className="flex items-center gap-3">
+          <img src={osuLogo} alt="OSU Logo" className="h-10 w-10 object-contain" />
+          <h1 className="text-xl font-bold">OSU Seat Finder</h1>
         </div>
+      </header>
 
-        <Tabs defaultValue="signin" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="signin">Sign In</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
-          </TabsList>
+      <div className="flex items-center justify-center p-4 mt-8">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">欢迎</CardTitle>
+            <CardDescription className="text-center">
+              登录或注册以使用扫码功能
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="signin" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="signin">登录</TabsTrigger>
+                <TabsTrigger value="signup">注册</TabsTrigger>
+              </TabsList>
 
-          <TabsContent value="signin">
-            <form onSubmit={handleSignIn} className="space-y-4">
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your-email@osu.edu"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
+              <TabsContent value="signin">
+                <form onSubmit={handleSignIn} className="space-y-4">
+                  <div>
+                    <Label htmlFor="email">邮箱</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="your-email@osu.edu"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
 
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
+                  <div>
+                    <Label htmlFor="password">密码</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="输入密码"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Signing in...' : 'Sign In'}
-              </Button>
-            </form>
-          </TabsContent>
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? '登录中...' : '登录'}
+                  </Button>
+                </form>
+              </TabsContent>
 
-          <TabsContent value="signup">
-            <form onSubmit={handleSignUp} className="space-y-4">
-              <div>
-                <Label htmlFor="signup-email">Email</Label>
-                <Input
-                  id="signup-email"
-                  type="email"
-                  placeholder="your-email@osu.edu"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
+              <TabsContent value="signup">
+                <form onSubmit={handleSignUp} className="space-y-4">
+                  <div>
+                    <Label htmlFor="signup-email">邮箱</Label>
+                    <Input
+                      id="signup-email"
+                      type="email"
+                      placeholder="your-email@osu.edu"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
 
-              <div>
-                <Label htmlFor="signup-password">Password</Label>
-                <Input
-                  id="signup-password"
-                  type="password"
-                  placeholder="Create a password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={6}
-                />
-              </div>
+                  <div>
+                    <Label htmlFor="signup-password">密码</Label>
+                    <Input
+                      id="signup-password"
+                      type="password"
+                      placeholder="至少6位字符"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Creating account...' : 'Create Account'}
-              </Button>
-            </form>
-          </TabsContent>
-        </Tabs>
-
-        <div className="mt-6 text-center">
-          <Button
-            variant="link"
-            onClick={() => navigate('/')}
-            className="text-sm"
-          >
-            Back to Map View
-          </Button>
-        </div>
-      </Card>
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? '注册中...' : '注册'}
+                  </Button>
+                </form>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

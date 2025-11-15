@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, QrCode } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import osuLogo from '@/assets/osu-logo.png';
 
 const Scan = () => {
   const [scanning, setScanning] = useState(false);
@@ -189,35 +190,53 @@ const Scan = () => {
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
+        <img src={osuLogo} alt="OSU Logo" className="h-10 w-10 object-contain" />
         <div>
-          <h1 className="text-xl font-bold">Scan QR Code</h1>
-          <p className="text-sm opacity-90">Align code within frame</p>
+          <h1 className="text-xl font-bold">扫描二维码</h1>
+          <p className="text-sm opacity-90">对准座位二维码</p>
         </div>
       </header>
 
       <main className="p-4">
         <Card className="p-6 mb-4">
           <div className="flex items-center gap-3 mb-4">
-            <QrCode className="h-6 w-6 text-primary" />
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <QrCode className="h-6 w-6 text-primary" />
+            </div>
             <div>
-              <h2 className="font-semibold">Scan Instructions</h2>
+              <h2 className="font-semibold">扫码说明</h2>
               <p className="text-sm text-muted-foreground">
-                Point camera at seat QR code
+                将相机对准座位二维码
               </p>
             </div>
           </div>
 
           {/* QR Scanner */}
-          <div id="qr-reader" className="w-full"></div>
+          <div id="qr-reader" className="w-full rounded-lg overflow-hidden"></div>
         </Card>
 
-        <Card className="p-4 bg-muted/30">
-          <h3 className="font-medium mb-2 text-sm">Tips</h3>
-          <ul className="text-xs text-muted-foreground space-y-1">
-            <li>• Hold phone steady and ensure good lighting</li>
-            <li>• First scan = occupy seat</li>
-            <li>• Scan same code again = release seat</li>
-            <li>• You can only have one active seat at a time</li>
+        <Card className="p-4 bg-muted/30 border-primary/20">
+          <h3 className="font-medium mb-3 flex items-center gap-2">
+            <span className="text-primary">💡</span>
+            使用提示
+          </h3>
+          <ul className="text-sm text-muted-foreground space-y-2">
+            <li className="flex items-start gap-2">
+              <span className="text-primary">•</span>
+              <span>保持手机稳定，确保光线充足</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">•</span>
+              <span>首次扫描 = 占用座位</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">•</span>
+              <span>再次扫描同一码 = 释放座位</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary">•</span>
+              <span>一次只能占用一个座位</span>
+            </li>
           </ul>
         </Card>
       </main>

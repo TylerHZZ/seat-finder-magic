@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Sparkles, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import osuLogo from '@/assets/osu-logo.png';
 
 const Index = () => {
   const [seats, setSeats] = useState<Seat[]>(mockSeats);
@@ -136,9 +137,7 @@ const Index = () => {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
         <div className="container mx-auto px-4 py-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <Sparkles className="h-6 w-6 text-primary" />
-            </div>
+            <img src={osuLogo} alt="OSU Logo" className="h-12 w-12 object-contain" />
             <div>
               <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                 OSU Seat Finder
