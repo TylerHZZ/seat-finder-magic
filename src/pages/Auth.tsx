@@ -62,7 +62,7 @@ const Auth = () => {
       });
     } else {
       toast({
-        title: '欢迎！',
+        title: 'Welcome!',
         description: 'Successfully logged in.',
       });
       navigate('/mobile');
@@ -91,7 +91,7 @@ const Auth = () => {
       <div className="flex items-center justify-center p-4 mt-8">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">欢迎</CardTitle>
+            <CardTitle className="text-2xl text-center">Welcome</CardTitle>
             <CardDescription className="text-center">
               Log in or sign up to use QR scanning
             </CardDescription>
@@ -106,7 +106,7 @@ const Auth = () => {
               <TabsContent value="signin">
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div>
-                    <Label htmlFor="email">邮箱</Label>
+                    <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
                       type="email"
@@ -118,11 +118,11 @@ const Auth = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="password">密码</Label>
+                    <Label htmlFor="password">Password</Label>
                     <Input
                       id="password"
                       type="password"
-                      placeholder="输入密码"
+                      placeholder="Enter password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -138,7 +138,7 @@ const Auth = () => {
               <TabsContent value="signup">
                 <form onSubmit={handleSignUp} className="space-y-4">
                   <div>
-                    <Label htmlFor="signup-email">邮箱</Label>
+                    <Label htmlFor="signup-email">Email</Label>
                     <Input
                       id="signup-email"
                       type="email"
@@ -150,11 +150,11 @@ const Auth = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="signup-password">密码</Label>
+                    <Label htmlFor="signup-password">Password</Label>
                     <Input
                       id="signup-password"
                       type="password"
-                      placeholder="至少6位字符"
+                      placeholder="At least 6 characters"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
